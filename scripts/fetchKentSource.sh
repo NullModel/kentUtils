@@ -5,7 +5,11 @@ git clone http://genome-source.cse.ucsc.edu/samtabix.git samtabix
 
 echo "fetch kent source" 1>&2
 git archive --remote=git://genome-source.cse.ucsc.edu/kent.git \
---prefix=kent/ beta \
+--prefix=kent/ HEAD \
+src/ameme \
+src/blat \
+src/cdnaAli \
+src/index \
 src/product \
 src/dnaDust \
 src/inc \

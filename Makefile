@@ -36,7 +36,12 @@ all: fetchSource libs utils
 
 utils:
 	mkdir -p ${CURDIR}/bin
-	cd kent/src/utils/aveCols && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
+	cd kent/src/ameme && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
+	cd kent/src/blat && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
+	cd kent/src/cdnaAli && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
+	cd kent/src/index && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
+	cd kent/src/utils && ${MAKE} ${makeFlags} PNGLIB=${pngLib} \
+             DIRS="aveCols ave aNotB cCp bestThreshold bedRemoveOverlap twoBitToFa faCat"
 	cd kent/src/hg/utils/gapToLift && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
 
 libs:
