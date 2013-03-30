@@ -13,12 +13,28 @@ else
    extraCFlags = CFLAGS="-I/opt/local/include"
 endif
 ifeq ($(wildcard /opt/local/lib/libpng.a),)
-  pngLib = /usr/lib64/libpng.a
+  ifeq ($(wildcard /usr/lib64/libpng.a),)
+    pngLib = -lpng
+  else
+    pngLib = /usr/lib64/libpng.a
+  endif
 else
   pngLib = /opt/local/lib/libpng.a
 endif
 ifeq ($(wildcard /usr/local/mysql/lib/libmysqlclient.a),)
-  mysqlLibs = /usr/lib64/mysql/libmysqlclient.a -lz
+  ifeq ($(wildcard /usr/lib64/mysql/libmysqlclient.so),)
+    ifeq ($(wildcard /usr/lib/libmysqlclient.a),)
+      ifeq ($(wildcard /usr/lib64/mysql/libmysqlclient.a),)
+        mysqlLibs = -lmysqlclient -lz
+      else
+        mysqlLibs = /usr/lib64/mysql/libmysqlclient.a -lz
+      endif
+    else
+      mysqlLibs = /usr/lib/libmysqlclient.a -lz
+    endif
+  else
+    mysqlLibs = /usr/lib64/mysql/libmysqlclient.so -lz
+  endif
 else
   mysqlLibs = /usr/local/mysql/lib/libmysqlclient.a -lz -lssl -lcrypto
 endif
