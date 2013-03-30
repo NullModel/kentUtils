@@ -26,6 +26,9 @@ libssl
    cd kentUtils
    make
 
+   This build fetches (with git) approximately 60 Mb of kent source code,
+   and constructs command binaries of approximately 120 Mb.
+
 3. Install utilities
    The binaries are built into kentUtils/bin/
    To install them in a global bin/ directory, copy them
