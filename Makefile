@@ -71,3 +71,5 @@ fetchSource:
 
 clean:
 	cd kent/src/lib && ${MAKE} ${makeFlags} clean
+	cd kent/src/jkOwnLib && ${MAKE} ${makeFlags} clean
+	cd kent/src/hg/lib && ${MAKE} ${makeFlags} clean
