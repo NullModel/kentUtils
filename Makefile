@@ -48,6 +48,23 @@ makeFlags = SAMTABIXDIR=${samtabixDir} USE_SAMTABIX=1 MACHTYPE=local \
 	DESTDIR=${destDir} BINDIR=${binDir} MYSQLINC=${mysqlInc} \
 	MYSQLLIBS=${mysqlLibs}
 
+UTILS_APPLIST = aveCols ave aNotB cCp bestThreshold bedRemoveOverlap faCat \
+	bedClip bedGraphToBigWig bedToBigBed \
+	bigBedInfo bigBedSummary bigBedToBed bigWigAverageOverBed  \
+	bigWigInfo bigWigSummary bigWigToBedGraph bigWigToWig\
+	faCount faFrag faOneRecord faPolyASizes faRandomize faSize \
+	faSomeRecords faToNib \
+	faToTwoBit htmlCheck nibFrag paraFetch paraSync sizeof stringify \
+	textHistogram twoBitDup twoBitInfo twoBitToFa userApps \
+	wigCorrelate wigToBigWig
+
+HG_APPLIST = bedSort liftUp liftOver bedItemOverlapCount encode/validateFiles \
+	featureBits hgsql ratStuff/mafsInRegion ratStuff/mafSpeciesSubset \
+	pslCDnaFilter genePredToGtf pslPretty pslReps pslSort
+
+HG_UTILS_APPLIST = bedExtendRanges gapToLift gff3ToGenePred gtfToGenePred \
+        hubCheck overlapSelect makeTableList pslMap
+
 all: fetchSource libs utils
 
 utils:
@@ -56,9 +73,13 @@ utils:
 	cd kent/src/blat && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
 	cd kent/src/cdnaAli && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
 	cd kent/src/index && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
-	cd kent/src/utils && ${MAKE} ${makeFlags} PNGLIB=${pngLib} \
-             DIRS="aveCols ave aNotB cCp bestThreshold bedRemoveOverlap twoBitToFa faCat"
-	cd kent/src/hg/utils/gapToLift && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
+	@for P in ${UTILS_APPLIST}; do \
+	    ( cd kent/src/utils/$${P} && echo kent/src/utils/$${P} && ${MAKE} ${makeFlags} PNGLIB=${pngLib}) ; \
+	done
+	cd kent/src/hg/utils && ${MAKE} utils DIRS="${HG_UTILS_APPLIST}" ${makeFlags} PNGLIB=${pngLib}
+	@for P in ${HG_APPLIST}; do \
+	    ( cd kent/src/hg/$${P} && echo kent/src/hg/$${P} && ${MAKE} ${makeFlags} PNGLIB=${pngLib} ) ; \
+	done
 
 libs:
 	cd samtabix && ${MAKE} ${makeFlags}
