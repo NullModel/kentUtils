@@ -24,13 +24,13 @@ gnu make - http://www.gnu.org/software/make/
    make
 
 3. Install utilities
-   The binaries are built into kentUtils/bin/local/
+   The binaries are built into kentUtils/bin/
    To install them in a global bin/ directory, copy them
    to desired location:
-      sudo rsync -a -P bin/local/ /usr/local/bin/kentUtils/
+      sudo rsync -a -P bin/ /usr/local/bin/kentUtils/
 
-   The destination should be its own unique directory
-   to avoid overwriting same-named binaries
+   The destination bin/kentUtils/ should be its own unique directory
+   to avoid overwriting same-named binaries in a standard bin/ directory.
 
    Users add '/usr/local/bin/kentUtils' to their shell PATH
    to access the commands.
