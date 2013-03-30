@@ -63,7 +63,7 @@ HG_APPLIST = bedSort liftUp liftOver bedItemOverlapCount encode/validateFiles \
 	pslCDnaFilter genePredToGtf pslPretty pslReps pslSort
 
 HG_UTILS_APPLIST = bedExtendRanges gapToLift gff3ToGenePred gtfToGenePred \
-        hubCheck overlapSelect makeTableList pslMap
+        hubCheck oligoMatch overlapSelect makeTableList pslMap
 
 all: fetchSource libs utils
 
