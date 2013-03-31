@@ -9,12 +9,13 @@ git archive --remote=git://genome-source.cse.ucsc.edu/kent.git \
 src/ameme \
 src/blat \
 src/cdnaAli \
+src/dnaDust \
 src/gfClient \
 src/gfServer \
 src/index \
 src/product \
 src/reformat \
-src/dnaDust \
+src/xenoAli \
 src/inc \
 src/utils \
 src/jkOwnLib \

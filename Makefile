@@ -82,7 +82,7 @@ HG_APPLIST = bedSort liftUp liftOver bedItemOverlapCount encode/validateFiles \
 HG_UTILS_APPLIST = bedExtendRanges gapToLift gff3ToGenePred gtfToGenePred \
         hubCheck oligoMatch overlapSelect makeTableList pslMap
 
-SRC_DIRS_DONE = ameme blat cdnaAli index reformat
+SRC_DIRS_DONE = ameme blat cdnaAli index reformat xenoAli
 
 all: fetchSource libs utils
 
