@@ -13,6 +13,7 @@ src/gfClient \
 src/gfServer \
 src/index \
 src/product \
+src/reformat \
 src/dnaDust \
 src/inc \
 src/utils \

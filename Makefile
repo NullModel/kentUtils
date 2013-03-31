@@ -1,11 +1,28 @@
+#  Makefile for kentUtils project
+#  performs the operations of fetching selected directories from
+#  the kent source tree using 'git' and then building the utilities
+#  in the kent source tree.
 
 samtabixDir = ${CURDIR}/samtabix
-destDir = ${CURDIR}
-binDir = /bin
+DESTDIR = ${CURDIR}
+BINDIR = /bin
 extraCFlags =
 mysqlInc =
 mysqlLibs =
 pngLib =
+
+# WARNING: these 'ifeq' statements are currently backwards.
+#          the 'else' clause is taken when the file under test exists
+#          instead of the more logical meaning of:
+#          if (file exists)
+#             use this file
+#          else
+#             use different file
+#          endif
+#
+#  The correct syntax needs to be worked out to straighten these out so
+#      they can be read without confusion.
+#
 
 ifeq ($(wildcard /opt/local/include/png.h),)
    extraCFlags =
@@ -45,7 +62,7 @@ else
 endif
 
 makeFlags = SAMTABIXDIR=${samtabixDir} USE_SAMTABIX=1 MACHTYPE=local \
-	DESTDIR=${destDir} BINDIR=${binDir} MYSQLINC=${mysqlInc} \
+	DESTDIR=${DESTDIR} BINDIR=${BINDIR} MYSQLINC=${mysqlInc} \
 	MYSQLLIBS=${mysqlLibs}
 
 UTILS_APPLIST = aveCols ave aNotB cCp bestThreshold bedRemoveOverlap faCat \
@@ -65,14 +82,22 @@ HG_APPLIST = bedSort liftUp liftOver bedItemOverlapCount encode/validateFiles \
 HG_UTILS_APPLIST = bedExtendRanges gapToLift gff3ToGenePred gtfToGenePred \
         hubCheck oligoMatch overlapSelect makeTableList pslMap
 
+SRC_DIRS_DONE = ameme blat cdnaAli index reformat
+
 all: fetchSource libs utils
+
+#
+#  after the makefiles are completely fixed up in the kent source, the
+#  kent/src/makefile can be used with its 'utils' target.  Until then,
+#  these individual loops are done for the directories and programs that
+#  have had their makefiles fixed.
+#
 
 utils:
 	mkdir -p ${CURDIR}/bin
-	cd kent/src/ameme && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
-	cd kent/src/blat && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
-	cd kent/src/cdnaAli && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
-	cd kent/src/index && ${MAKE} ${makeFlags} PNGLIB=${pngLib}
+	@for P in ${SRC_DIRS_DONE}; do \
+	    ( cd kent/src/$${P} && echo kent/src/$${P} && ${MAKE} ${makeFlags} PNGLIB=${pngLib}) ; \
+	done
 	@for P in ${UTILS_APPLIST}; do \
 	    ( cd kent/src/utils/$${P} && echo kent/src/utils/$${P} && ${MAKE} ${makeFlags} PNGLIB=${pngLib}) ; \
 	done
@@ -80,6 +105,8 @@ utils:
 	@for P in ${HG_APPLIST}; do \
 	    ( cd kent/src/hg/$${P} && echo kent/src/hg/$${P} && ${MAKE} ${makeFlags} PNGLIB=${pngLib} ) ; \
 	done
+	@echo "size of built kent source tree and binaries:"
+	@du -hsc kent bin
 
 libs:
 	cd samtabix && ${MAKE} ${makeFlags}
@@ -89,6 +116,8 @@ libs:
 
 fetchSource:
 	./scripts/fetchKentSource.sh
+	@echo "size of fetched kent source tree:"
+	@du -hs kent
 
 clean:
 	cd kent/src/lib && ${MAKE} ${makeFlags} clean
