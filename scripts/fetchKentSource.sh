@@ -12,9 +12,13 @@ src/cdnaAli \
 src/dnaDust \
 src/gfClient \
 src/gfServer \
+src/idbQuery \
 src/index \
 src/product \
+src/protDust \
 src/reformat \
+src/scanIntrons \
+src/weblet \
 src/xenoAli \
 src/inc \
 src/utils \
