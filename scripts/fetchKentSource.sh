@@ -4,7 +4,7 @@ echo "fetch samtabix" 1>&2
 git clone http://genome-source.cse.ucsc.edu/samtabix.git samtabix
 
 echo "fetch kent source" 1>&2
-git archive --remote=git://genome-source.cse.ucsc.edu/kent.git \
+git archive --format=zip -9 --remote=git://genome-source.cse.ucsc.edu/kent.git \
 --prefix=kent/ HEAD \
 src/ameme \
 src/aladdin \
