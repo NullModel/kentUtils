@@ -82,8 +82,9 @@ HG_APPLIST = bedSort liftUp liftOver bedItemOverlapCount encode/validateFiles \
 HG_UTILS_APPLIST = bedExtendRanges gapToLift gff3ToGenePred gtfToGenePred \
         hubCheck oligoMatch overlapSelect makeTableList pslMap
 
-SRC_DIRS_DONE = ameme blat cdnaAli dnaDust idbQuery index protDust reformat \
-        scanIntrons weblet xenoAli
+SRC_DIRS_DONE = aladdin ameme blat cdnaAli dnaDust fuse getgene idbQuery \
+	index meta primeMate protDust reformat scanIntrons weblet \
+	wormAli xenoAli
 
 all: fetchSource libs utils
 

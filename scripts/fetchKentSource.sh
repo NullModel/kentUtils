@@ -7,18 +7,24 @@ echo "fetch kent source" 1>&2
 git archive --remote=git://genome-source.cse.ucsc.edu/kent.git \
 --prefix=kent/ HEAD \
 src/ameme \
+src/aladdin \
 src/blat \
 src/cdnaAli \
 src/dnaDust \
+src/fuse \
+src/getgene \
 src/gfClient \
 src/gfServer \
 src/idbQuery \
 src/index \
+src/meta \
+src/primeMate \
 src/product \
 src/protDust \
 src/reformat \
 src/scanIntrons \
 src/weblet \
+src/wormAli \
 src/xenoAli \
 src/inc \
 src/utils \
@@ -42,4 +48,6 @@ src/hg/pslReps \
 src/hg/pslSort \
 src/hg/ratStuff/mafsInRegion \
 src/hg/ratStuff/mafSpeciesSubset \
-src/hg/utils | tar xf -
+src/hg/utils > gitArchive.zip
+
+unzip gitArchive.zip
